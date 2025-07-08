@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shima Akbari - Digital Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            z-index: 2;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #00ffff;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.5),
+                0 0 40px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 40px rgba(0, 255, 255, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5); }
+        }
+        
+        .name {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8)); }
+        }
+        
+        .title {
+            font-size: 1.2em;
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        
+        .github-link {
+            color: #ff00ff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .github-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+        
+        .github-link::before {
+            content: ">";
+            margin-right: 5px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .section {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover {
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5em;
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .section-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #00ffff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+        
+        .skill-category {
+            margin-bottom: 20px;
+        }
+        
+        .skill-category h3 {
+            color: #ff00ff;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-tag::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+        
+        .skill-tag:hover {
+            border-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .education-item, .cert-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #00ffff;
+        }
+        
+        .fun-fact {
+            background: linear-gradient(45deg, rgba(255, 0, 255, 0.1), rgba(255, 255, 0, 0.1));
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-style: italic;
+            color: #ffff00;
+        }
+        
+        .terminal {
+            background: #000000;
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .terminal::before {
+            content: "shima@universe:~$ ";
+            color: #00ffff;
+        }
+        
+        .terminal-text {
+            color: #00ff00;
+            animation: typing 3s steps(40, end) infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .floating-particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: float 10s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .name {
+                font-size: 2em;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="floating-particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="profile-container">
+                <img src="./profile.jpg" alt="Shima Akbari" class="profile-image">
+            </div>
+            <h1 class="name">SHIMA AKBARI</h1>
+            <p class="title">Computer Engineering Student</p>
+            <p class="subtitle">Meybod University | 21 years old</p>
+            <p class="subtitle">High School: Mathematics & Biology</p>
+            <a href="https://github.com/ShimForLife" target="_blank" class="github-link">GitHub: ShimForLife</a>
+        </div>
+        
+        <div class="main-content">
+            <div class="section">
+                <h2 class="section-title">Programming</h2>
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Assembly</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">WebSocket</span>
+                        <span class="skill-tag">Socket.io</span>
+                        <span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">Supabase</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Flexbox</span>
+                        <span class="skill-tag">Vue.js</span>
+                    </div>
+                </div>
+                
+                <div class="fun-fact">
+                    "and I know how everything comes together =)"
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">DevOps & Tools</h2>
+                <div class="skill-category">
+                    <h3>Version Control</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Deployment</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Docker Compose</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Operating Systems</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Kali Linux</span>
+                    </div>
+                </div>
+                
+                <div class="terminal">
+                    <div class="terminal-text">kali linux user btw</div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Certifications</h2>
+                <div class="cert-item">
+                    <strong>Application Security</strong>
+                    <p>Includes basic networking knowledge</p>
+                </div>
+                <div class="cert-item">
+                    <strong>LPIC-1</strong>
+                    <p>Linux Professional Institute Certification</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Additional Skills</h2>
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">English (Fluent)</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Creative</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Digital Illustration</span>
+                        <span class="skill-tag">Clip Studio Paint</span>
+                    </div>
+                </div>
+                
+                <div class="fun-fact">
+                    A tech enthusiast who bridges the gap between logic and creativity
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            document.querySelector('.floating-particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 20000);
+        }
+        
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+        
+        // Add hover effects to skill tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.color = '#00ffff';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.color = '#ffffff';
+            });
+        });
+        
+        // Add glitch effect to name on hover
+        const nameElement = document.querySelector('.name');
+        nameElement.addEventListener('mouseenter', function() {
+            this.style.animation = 'glow 0.1s ease-in-out infinite alternate';
+        });
+        
+        nameElement.addEventListener('mouseleave', function() {
+            this.style.animation = 'glow 2s ease-in-out infinite alternate';
+        });
+    </script>
+</body>
+</html>
